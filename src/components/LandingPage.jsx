@@ -1020,7 +1020,7 @@ const LandingPage = () => {
         }}
       >
         <div style={{ fontSize: '0.9rem', opacity: '0.8' }}>
-          info@romeria.com | (34) 223--1381
+          gerencia@ricardosanjur.com | 66714646
         </div>
         <div style={{ display: 'flex', gap: '20px', fontSize: '1.2rem' }}>
           <span>📸</span>
