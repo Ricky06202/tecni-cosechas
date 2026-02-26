@@ -29,9 +29,33 @@ const SURVEY_HISTORY = {
   '2026-02-24': { 1: [1, 2, 3, 4, 5, 6], 2: [1, 2, 3, 4, 5, 6, 7] },
 }
 
+const CLIENTS = [
+  { id: 'rey', name: 'Rey', minWeight: 150, image: '/clients/rey.jpg' },
+  {
+    id: 'riba_smith',
+    name: 'Riba Smith',
+    minWeight: 180,
+    image: '/clients/riba_smith.jpg',
+  },
+  { id: 'xtra', name: 'Xtra', minWeight: 120, image: '/clients/xtra.jpg' },
+  {
+    id: 'super_99',
+    name: 'Super 99',
+    minWeight: 110,
+    image: '/clients/super99.jpg',
+  },
+  {
+    id: 'otros',
+    name: 'Otros (Especificar)',
+    minWeight: 0,
+    image: '/clients/otros.jpg',
+  },
+]
+
 const Dashboard = () => {
   const [selectedGH, setSelectedGH] = useState(GREENHOUSES[0])
-  const [client, setClient] = useState('REY')
+  const [selectedClient, setSelectedClient] = useState(CLIENTS[0])
+  const [customWeight, setCustomWeight] = useState('')
   const [quotation, setQuotation] = useState(350)
   const [cropType, setCropType] = useState('Lechuga')
   const [date, setDate] = useState('2026-02-02')
@@ -97,6 +121,7 @@ const Dashboard = () => {
   const [selectedBed, setSelectedBed] = useState(null)
   const [showReport, setShowReport] = useState(false)
   const [showOrtofoto, setShowOrtofoto] = useState(false)
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   // Update tunnels when greenhouse changes
   useEffect(() => {
@@ -266,7 +291,7 @@ const Dashboard = () => {
               color: 'white',
               padding: '0.5rem 1rem',
               borderRadius: '4px',
-              marginBottom: '2rem',
+              marginBottom: '1rem',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -282,6 +307,58 @@ const Dashboard = () => {
             >
               {selectedGH.name} • {selectedGH.area} m²
             </span>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '2rem',
+              marginBottom: '2rem',
+              padding: '0.5rem',
+              backgroundColor: '#f9f9f9',
+              borderRadius: '8px',
+              border: '1px solid #eee',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  backgroundColor: '#0056b3',
+                  borderRadius: '4px',
+                }}
+              ></div>
+              <span
+                style={{
+                  fontSize: '0.85rem',
+                  fontWeight: 'bold',
+                  color: '#0056b3',
+                }}
+              >
+                Premium (Cat A)
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  backgroundColor: '#e67e22',
+                  borderRadius: '4px',
+                }}
+              ></div>
+              <span
+                style={{
+                  fontSize: '0.85rem',
+                  fontWeight: 'bold',
+                  color: '#e67e22',
+                }}
+              >
+                Comercial (Cat B)
+              </span>
+            </div>
           </div>
 
           <div
@@ -437,7 +514,7 @@ const Dashboard = () => {
                 }}
               >
                 <div>
-                  <span style={{ fontSize: '1.2rem', color: '#1b5e20' }}>
+                  <span style={{ fontSize: '1.2rem', color: '#0056b3' }}>
                     <strong>{totalEstimated.premium.toFixed(1)}kg</strong>
                   </span>
                   <p style={{ fontSize: '0.65rem', color: '#666' }}>
@@ -445,7 +522,7 @@ const Dashboard = () => {
                   </p>
                 </div>
                 <div>
-                  <span style={{ fontSize: '1.2rem', color: '#2e7d32' }}>
+                  <span style={{ fontSize: '1.2rem', color: '#0056b3' }}>
                     <strong>{totalEstimated.surplus.toFixed(1)}kg</strong>
                   </span>
                   <p style={{ fontSize: '0.65rem', color: '#666' }}>
@@ -521,9 +598,9 @@ const Dashboard = () => {
                 <div
                   style={{
                     padding: '0.8rem',
-                    backgroundColor: '#e8f5e9',
+                    backgroundColor: '#eef6ff',
                     borderRadius: '8px',
-                    borderLeft: '4px solid #1b5e20',
+                    borderLeft: '4px solid #0056b3',
                   }}
                 >
                   <p style={{ margin: 0, fontSize: '0.75rem', color: '#666' }}>
@@ -534,7 +611,7 @@ const Dashboard = () => {
                       margin: 0,
                       fontSize: '1.2rem',
                       fontWeight: 'bold',
-                      color: '#1b5e20',
+                      color: '#0056b3',
                     }}
                   >
                     {totalInventory.premium.toFixed(1)} kg
@@ -663,6 +740,52 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+
+            <div
+              style={{
+                marginTop: '1.2rem',
+                paddingTop: '1.2rem',
+                borderTop: '1px solid #eee',
+              }}
+            >
+              <p
+                style={{
+                  margin: '0 0 10px 0',
+                  fontSize: '0.8rem',
+                  color: '#666',
+                  fontWeight: 'bold',
+                }}
+              >
+                FOTOS DE INSTALACIÓN
+              </p>
+              <button
+                onClick={() => setShowPhotosModal(true)}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  backgroundColor: '#f5f5f5',
+                  border: '1px solid #ddd',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  fontWeight: 'bold',
+                  color: '#333',
+                  transition: 'background-color 0.2s',
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = '#e0e0e0')
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = '#f5f5f5')
+                }
+              >
+                <span style={{ fontSize: '1.2rem' }}>📸</span>
+                VER GALERÍA DE INSTALACIONES
+              </button>
+            </div>
           </div>
 
           <div className="card">
@@ -718,11 +841,15 @@ const Dashboard = () => {
                   }}
                 >
                   <div>
-                    PREMIUM (A):{' '}
+                    <span style={{ color: '#0056b3', fontWeight: 'bold' }}>
+                      PREMIUM (A):
+                    </span>{' '}
                     <strong>{selectedBed.premium.toFixed(1)}kg</strong>
                   </div>
                   <div>
-                    COMERCIAL (B):{' '}
+                    <span style={{ color: '#e67e22', fontWeight: 'bold' }}>
+                      COMERCIAL (B):
+                    </span>{' '}
                     <strong>{selectedBed.comercial.toFixed(1)}kg</strong>
                   </div>
                 </div>
@@ -812,17 +939,63 @@ const Dashboard = () => {
                 >
                   CLIENTE:
                 </label>
-                <input
-                  type="text"
-                  value={client}
-                  onChange={(e) => setClient(e.target.value)}
+                <select
+                  value={selectedClient.id}
+                  onChange={(e) =>
+                    setSelectedClient(
+                      CLIENTS.find((c) => c.id === e.target.value),
+                    )
+                  }
                   style={{
                     width: '100%',
                     padding: '0.5rem',
                     borderRadius: '4px',
                     border: '1px solid #ddd',
+                    marginBottom: '8px',
                   }}
-                />
+                >
+                  {CLIENTS.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+
+                {selectedClient.id === 'otros' ? (
+                  <div style={{ marginBottom: '8px' }}>
+                    <label
+                      style={{
+                        display: 'block',
+                        fontSize: '0.7rem',
+                        color: '#666',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      Peso mínimo (g):
+                    </label>
+                    <input
+                      type="number"
+                      value={customWeight}
+                      onChange={(e) => setCustomWeight(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '0.5rem',
+                        borderRadius: '4px',
+                        border: '1px solid #ddd',
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <p
+                    style={{
+                      fontSize: '0.75rem',
+                      color: '#666',
+                      margin: '4px 0 8px 0',
+                    }}
+                  >
+                    Peso mínimo: <strong>{selectedClient.minWeight}g</strong>
+                  </p>
+                )}
               </div>
 
               <div>
@@ -940,7 +1113,7 @@ const Dashboard = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     fontSize: '0.85rem',
-                    color: '#1b5e20',
+                    color: '#0056b3',
                   }}
                 >
                   <span>TOTAL PREMIUM (Cat A):</span>
@@ -951,7 +1124,7 @@ const Dashboard = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     fontSize: '0.8rem',
-                    color: '#2e7d32',
+                    color: '#0056b3',
                     marginTop: '4px',
                   }}
                 >
@@ -1011,7 +1184,7 @@ const Dashboard = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     fontSize: '0.85rem',
-                    color: '#1b5e20',
+                    color: '#0056b3',
                     marginTop: '8px',
                     borderTop: '1px solid #ddd',
                     paddingTop: '6px',
@@ -1131,7 +1304,7 @@ const Dashboard = () => {
                   </p>
                   <p
                     style={{
-                      color: '#1b5e20',
+                      color: '#0056b3',
                       display: 'flex',
                       justifyContent: 'space-between',
                     }}
@@ -1141,7 +1314,7 @@ const Dashboard = () => {
                   </p>
                   <p
                     style={{
-                      color: '#2e7d32',
+                      color: '#0056b3',
                       display: 'flex',
                       justifyContent: 'space-between',
                     }}
@@ -1411,6 +1584,135 @@ const Dashboard = () => {
                 onMouseEnter={(e) => (e.target.style.transform = 'scale(1.5)')}
                 onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
               />
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Modal de Fotos de Instalaciones */}
+      {showPhotosModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.85)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 2000,
+            padding: '2rem',
+          }}
+        >
+          <div
+            className="card"
+            style={{
+              maxWidth: '900px',
+              width: '100%',
+              maxHeight: '90vh',
+              position: 'relative',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '1rem',
+                flexShrink: 0,
+              }}
+            >
+              <div>
+                <h3 style={{ margin: 0, color: '#1b5e20' }}>
+                  FOTOS DE INSTALACIONES
+                </h3>
+                <p
+                  style={{
+                    margin: '4px 0 0 0',
+                    fontSize: '0.85rem',
+                    color: '#666',
+                  }}
+                >
+                  Agrícola RS Hermanos - Potrerillos Abajo
+                </p>
+              </div>
+              <button
+                onClick={() => setShowPhotosModal(false)}
+                style={{
+                  background: '#f44336',
+                  color: 'white',
+                  border: 'none',
+                  padding: '5px 15px',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                }}
+              >
+                CERRAR
+              </button>
+            </div>
+
+            <div
+              style={{
+                flex: 1,
+                overflowY: 'auto',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignContent: 'center',
+                gap: '1.5rem',
+                padding: '1rem',
+              }}
+            >
+              {[1, 2, 3, 4].map((num) => (
+                <div
+                  key={num}
+                  style={{
+                    backgroundColor: '#eee',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    width: 'calc(50% - 1rem)',
+                    maxWidth: '380px',
+                    aspectRatio: '4/3',
+                    border: '1px solid #ddd',
+                    position: 'relative',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  }}
+                >
+                  <img
+                    src={`/instalaciones/foto${num}.jpg`}
+                    alt={`Instalación ${num}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none'
+                      e.target.nextSibling.style.display = 'flex'
+                    }}
+                  />
+                  <div
+                    style={{
+                      display: 'none',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      color: '#999',
+                    }}
+                  >
+                    <span style={{ fontSize: '2rem' }}>📸</span>
+                    <span style={{ fontSize: '0.8rem', marginTop: '8px' }}>
+                      Foto {num} no disponible
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
