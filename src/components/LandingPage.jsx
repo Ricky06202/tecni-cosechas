@@ -476,7 +476,7 @@ const LandingPage = () => {
               </p>
             </div>
 
-            {/* Expert 2: Miguel Chabarria */}
+            {/* Expert 2: Miguel Chavarria */}
             <div
               style={{
                 backgroundColor: '#ffffff',
@@ -488,7 +488,7 @@ const LandingPage = () => {
             >
               <img
                 src="/expert_2.png"
-                alt="Miguel Chabarria"
+                alt="Miguel Chavarria"
                 style={{
                   width: '100%',
                   height: '240px',
@@ -504,7 +504,7 @@ const LandingPage = () => {
                   marginBottom: '5px',
                 }}
               >
-                Miguel Chabarria
+                Miguel Chavarria
               </h4>
               <p
                 style={{
@@ -653,7 +653,7 @@ const LandingPage = () => {
               </p>
             </div>
 
-            {/* Expert 5: Carlos de Ovaldia */}
+            {/* Expert 5: Carlos de Obaldia */}
             <div
               style={{
                 backgroundColor: '#ffffff',
@@ -665,7 +665,7 @@ const LandingPage = () => {
             >
               <img
                 src="/expert_5.png"
-                alt="Carlos de Ovaldia"
+                alt="Carlos de Obaldia"
                 style={{
                   width: '100%',
                   height: '240px',
@@ -681,7 +681,7 @@ const LandingPage = () => {
                   marginBottom: '5px',
                 }}
               >
-                Carlos de Ovaldia
+                Carlos de Obaldia
               </h4>
               <p
                 style={{
