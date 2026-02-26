@@ -1668,7 +1668,7 @@ const Dashboard = () => {
                 padding: '1rem',
               }}
             >
-              {[1, 2, 3, 4].map((num) => (
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                 <div
                   key={num}
                   style={{
