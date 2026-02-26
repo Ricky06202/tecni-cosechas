@@ -436,7 +436,7 @@ const Dashboard = () => {
                               width: '20px',
                               height: selectedGH.id === '2' ? '380px' : '210px',
                               border: isRecommended
-                                ? '2.5px solid #ffeb3b'
+                                ? '2.5px solid #4caf50'
                                 : selectedBed?.id === bed.id &&
                                     selectedBed?.tunnelId === tunnel.id
                                   ? '2.5px solid #0056b3'
@@ -448,7 +448,7 @@ const Dashboard = () => {
                               transition:
                                 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                               boxShadow: isRecommended
-                                ? '0 0 10px rgba(255, 235, 59, 0.7)'
+                                ? '0 0 10px rgba(76, 175, 80, 0.7)'
                                 : 'none',
                             }}
                           >

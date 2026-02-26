@@ -576,7 +576,7 @@ const LandingPage = () => {
                 Especialidad
               </p>
               <p style={{ color: '#666', marginBottom: '15px' }}>
-                Ing. Agrónomo
+                Ingeniero Agrícola
               </p>
               <p
                 style={{
@@ -694,7 +694,7 @@ const LandingPage = () => {
                 Especialidad
               </p>
               <p style={{ color: '#666', marginBottom: '15px' }}>
-                Ing. en Sistemas
+                Administrador de empresas / Consultor
               </p>
               <p
                 style={{
